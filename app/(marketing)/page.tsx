@@ -9,7 +9,7 @@ export default function Home() {
     <>
       <div className="max-w-[988px] mx-auto flex-1 w-full flex flex-col lg:flex-row items-center justify-center p-4 gap-2">
         <div className="relative w-[340px] h-[340px] lg:w-[424px] lg:h-[424px] mb-4 lg:mb-0">
-          <Image src='/book.svg' fill alt="home image" />
+          <Image src='/book.webp' fill alt="home image" />
         </div>
         <div className="flex flex-col items-center gap-y-8">
           <h1 className="text-xl lg:text-3xl font-bold text-neutral-600 max-w-[400px] text-center">
