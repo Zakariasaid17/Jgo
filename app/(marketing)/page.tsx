@@ -37,7 +37,7 @@ export default function Home() {
               <SignedIn>
                 <Button size='lg' variant='secondary' className="w-full" asChild>
                   <Link href='/learn'>
-                    Reprendre l'apprentissage
+                    Reprendre 
                   </Link>
                 </Button>
               </SignedIn>
