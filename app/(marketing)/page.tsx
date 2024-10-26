@@ -12,9 +12,11 @@ export default function Home() {
            <Image src='/book.svg' fill alt="home image" />
     </div>
      <div className="flex flex-col items-center gap-y-8">
-          <h1 className="text-xl lg:text-3xl font-bold text-neutral-600 max-w-[400px] text-center">
-          Apprenez, pratiquez et maîtrisez en agissant avec JihawiGo
-          </h1>
+     <h1 className="text-xl lg:text-3xl font-bold text-neutral-600 max-w-[400px] text-center">
+    Apprenez, pratiquez et ma&icirc;trisez en agissant avec JihawiGo
+</h1>
+         
+
       
       <div className="flex flex-col items-center gap-y-3 max-w-[330px] w-full">
          <ClerkLoading>
@@ -37,7 +39,7 @@ export default function Home() {
             <SignedIn>
                    <Button size='lg' variant='secondary' className="w-full" asChild>
                         <Link href='/learn'>
-                        Reprendre l&apos;apprentissage
+                        Reprendre l'apprentissage
                         </Link>
                    </Button>
             </SignedIn>
@@ -47,6 +49,13 @@ export default function Home() {
      </div>
 
    </div>
+
+
+   
+    
+   
+
    </>
+
   );
 }
