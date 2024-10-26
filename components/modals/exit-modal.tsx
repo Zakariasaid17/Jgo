@@ -4,13 +4,7 @@ import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 
-import {Dialog,
-     DialogContent,
-      DialogDescription,
-       DialogFooter,
-        DialogHeader,
-         DialogTitle} from '@/components/ui/dialog';
-
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from '@/components/ui/dialog';
 import { Button } from '@/components/ui/button';
 
 import { useExitModal } from '@/store/use-exit-modal';
@@ -22,12 +16,11 @@ export const ExitModal = () => {
 
     useEffect(() => setIsClient(true), []);
 
-    if(!isclient) {
+    if (!isclient) {
         return null;
     }
 
-    return(
-
+    return (
         <Dialog open={isOpen} onOpenChange={close}>
             <DialogContent className='max-w-md'>
                 <DialogHeader>
@@ -50,10 +43,10 @@ export const ExitModal = () => {
 
                 <DialogFooter className='mb-4'>
                     <div className='flex flex-col gap-y-4 w-full'>
-                        <Button variant='primary'className='w-full' size='lg' onClick={close}>
-                          Continue d'apprendre.
+                        <Button variant='primary' className='w-full' size='lg' onClick={close}>
+                          Continue d&apos;apprendre.
                         </Button>
-                        <Button variant='dangerOutline'className='w-full' size='lg' onClick={() => {close(); router.push('/learn')}}>
+                        <Button variant='dangerOutline' className='w-full' size='lg' onClick={() => {close(); router.push('/learn')}}>
                           Terminer la session.  
                         </Button>
                     </div>
