@@ -29,7 +29,7 @@ export default function Home() {
                 </SignUpButton>
                 <SignInButton mode="modal">
                   <Button size='lg' variant='primaryOutline' className="w-full">
-                    Je possède déjà un compte.
+                  Se connecter
                   </Button>
                 </SignInButton>
               </SignedOut>
