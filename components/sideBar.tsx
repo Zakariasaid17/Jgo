@@ -19,8 +19,8 @@ export function SideBar({className}:Props){
           
         <Link href='/learn'>
            <div className='pt-8 pl-4 pb-7 flex items-center gap-3'>
-               <Image src={'/whatsapp-logo.svg'} width={50} height={50} alt='iam'/>
-               <h1 className='text-2xl font-extrabold text-blue-600 tracking-wide'>JihawiGo</h1>
+               <Image src={'/mini-logo.webp'} width={50} height={50} alt='iam'/>
+               <h1 className='text-2xl font-extrabold text-blue-500 tracking-wide'>JihawiGo</h1>
            </div>
         </Link>
 
@@ -42,8 +42,8 @@ export function SideBar({className}:Props){
 
             <SidebarItem 
             iconsSource="/shop.svg"
-            label="Shop" 
-            href="/shop"/>
+            label="Premium" 
+            href="/Premium"/>
         </div>
 
         <div className="p-4">

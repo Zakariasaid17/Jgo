@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import db from '@/db/drizzle';
-import { auth} from '@clerk/nextjs/server';
+import { auth } from '@clerk/nextjs/server';
 import {
     challengeOptions,
     challengeProgress,
@@ -12,12 +12,16 @@ import {
     userSubscription
 } from '@/db/schema';
 import { eq, asc, desc } from 'drizzle-orm';
-import { ClerkProvider } from '@clerk/nextjs';
-import { email } from 'react-admin';
 
-// Get User Progress
-export const getUserProgress = cache(async () => {
+// Helper to get authenticated userId safely
+const getAuthenticatedUserId = async (): Promise<string | null> => {
     const { userId } = await auth();
+    return userId || null;
+};
+
+// Get User Progress for a specific user
+export const getUserProgress = cache(async () => {
+    const userId = await getAuthenticatedUserId();
 
     if (!userId) {
         return null;
@@ -32,10 +36,10 @@ export const getUserProgress = cache(async () => {
     return data;
 });
 
-// Get Units
+// Get Units for the active course of the authenticated user
 export const getUnits = cache(async () => {
+    const userId = await getAuthenticatedUserId();
     const userProgressData = await getUserProgress();
-    const { userId } = await auth();
 
     if (!userId || !userProgressData?.activeCourseId) {
         return [];
@@ -61,38 +65,25 @@ export const getUnits = cache(async () => {
         },
     });
 
-    const normalizedData = data.map((unit) => {
-        const lessonsWithCompletedStatus = unit.lessons.map((lesson) => {
-            if (lesson.challenges.length === 0) {
-                return { ...lesson, completed: false };
-            }
-
-            const allCompletedChallenges = lesson.challenges.every((challenge) => {
-                return (
-                    challenge.challengeProgress &&
-                    challenge.challengeProgress.length > 0 &&
-                    challenge.challengeProgress.every((progress) => progress.completed)
-                );
-            });
-
-            return { ...lesson, completed: allCompletedChallenges };
-        });
-
-        return { ...unit, lessons: lessonsWithCompletedStatus };
-    });
-
-    return normalizedData;
+    return data.map((unit) => ({
+        ...unit,
+        lessons: unit.lessons.map((lesson) => ({
+            ...lesson,
+            completed: lesson.challenges.every(
+                (challenge) => challenge.challengeProgress && challenge.challengeProgress.length > 0 && challenge.challengeProgress.every((progress) => progress.completed)
+            ),
+        })),
+    }));
 });
 
-// Get Courses
+// Get all Courses
 export const getCourses = cache(async () => {
-    const data = await db.query.courses.findMany();
-    return data;
+    return await db.query.courses.findMany();
 });
 
 // Get Course by ID
 export const getCourseById = cache(async (courseId: number) => {
-    const data = await db.query.courses.findFirst({
+    return await db.query.courses.findFirst({
         where: eq(courses.id, courseId),
         with: {
             units: {
@@ -105,12 +96,11 @@ export const getCourseById = cache(async (courseId: number) => {
             },
         },
     });
-    return data;
 });
 
-// Get Course Progress
+// Get Course Progress for the authenticated user
 export const getCourseProgress = cache(async () => {
-    const { userId } = await auth();
+    const userId = await getAuthenticatedUserId();
     const userProgressData = await getUserProgress();
 
     if (!userId || !userProgressData?.activeCourseId) {
@@ -139,15 +129,11 @@ export const getCourseProgress = cache(async () => {
 
     const firstUncompletedLesson = unitsInActiveCourse
         .flatMap((unit) => unit.lessons)
-        .find((lesson) => {
-            return lesson.challenges.some((challenge) => {
-                return (
-                    !challenge.challengeProgress ||
-                    challenge.challengeProgress.length === 0 ||
-                    challenge.challengeProgress.some((progress) => !progress.completed)
-                );
-            });
-        });
+        .find((lesson) => lesson.challenges.some((challenge) =>
+            !challenge.challengeProgress ||
+            challenge.challengeProgress.length === 0 ||
+            challenge.challengeProgress.some((progress) => !progress.completed)
+        ));
 
     return {
         activeLesson: firstUncompletedLesson,
@@ -155,9 +141,9 @@ export const getCourseProgress = cache(async () => {
     };
 });
 
-// Get Lesson
+// Get Lesson by ID or active lesson for the authenticated user
 export const getLesson = cache(async (id?: number) => {
-    const { userId } = await auth();
+    const userId = await getAuthenticatedUserId();
 
     if (!userId) {
         return null;
@@ -165,8 +151,6 @@ export const getLesson = cache(async (id?: number) => {
 
     const courseProgress = await getCourseProgress();
     const lessonId = id || courseProgress?.activeLessonId;
-
-    // Ensure lessonId is a number
     const numericLessonId = Number(lessonId);
 
     if (isNaN(numericLessonId)) {
@@ -193,20 +177,16 @@ export const getLesson = cache(async (id?: number) => {
         return null;
     }
 
-    const normalizedChallenges = data.challenges.map((challenge) => {
-        const completed =
-            challenge.challengeProgress &&
-            challenge.challengeProgress.length > 0 &&
-            challenge.challengeProgress.every((progress) => progress.completed);
-
-        return { ...challenge, completed };
-    });
-
-    return { ...data, challenges: normalizedChallenges };
+    return {
+        ...data,
+        challenges: data.challenges.map((challenge) => ({
+            ...challenge,
+            completed: challenge.challengeProgress && challenge.challengeProgress.length > 0 && challenge.challengeProgress.every((progress) => progress.completed),
+        })),
+    };
 });
 
-
-// Get Lesson Percentage
+// Calculate Lesson Completion Percentage
 export const getLessonPercentage = cache(async () => {
     const courseProgress = await getCourseProgress();
 
@@ -222,47 +202,37 @@ export const getLessonPercentage = cache(async () => {
 
     const completedChallenges = lesson.challenges.filter((challenge) => challenge.completed);
 
-    const percentage = Math.round(
-        (completedChallenges.length / lesson.challenges.length) * 100
-    );
-
-    return percentage;
+    return Math.round((completedChallenges.length / lesson.challenges.length) * 100);
 });
 
-/// Get User Subscription
+// Get User Subscription Status
 export const getUserSubscription = cache(async () => {
-    // Step 1: Get session claims to access user's email
     const { sessionClaims } = await auth();
-    const primaryEmail = sessionClaims?.email as string;
+    const primaryEmail = sessionClaims?.email as string | null;
 
-    // Step 2: Query the database to find the user's subscription by email
-    const data = await db.query.userSubscription.findFirst({
-        where: eq(userSubscription.email, primaryEmail), // Ensure this matches your schema
-    });
-
-    // Step 3: Return the subscription data with an isActive flag or null
-    return data ? { ...data, isActive: true } : null; // Modify as needed
-});
-
-// Get Top Ten Users
-export const getTopTenUsers = cache(async () => {
-    const { userId } = await auth();
-
-    if (!userId) {
-        return [];
+    if (!primaryEmail) {
+        return null;
     }
 
+    const data = await db.query.userSubscription.findFirst({
+        where: eq(userSubscription.email, primaryEmail),
+    });
+
+    return data ? { ...data, isActive: true } : null;
+});
+
+// Get Top Ten Users by XP Points for Leaderboard
+export const getTopTenUsers = cache(async () => {
     const data = await db.query.userProgress.findMany({
         orderBy: [desc(userProgress.points)],
         limit: 10,
-        columns: {
-            userId: true,
-            userName: true,
-            userImgSrc: true,
-            points: true,
-        },
     });
 
-    return data;
+    // Map the data to extract necessary fields
+    return data.map(userProgress => ({
+        userId: userProgress.userId,
+        userName: userProgress.userName || 'User', // Assuming you have this field in userProgress
+        userImgSrc: userProgress.userImgSrc || '/default-avatar.svg', // Assuming you have this field in userProgress
+        points: userProgress.points,
+    }));
 });
-
