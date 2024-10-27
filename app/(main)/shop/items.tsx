@@ -6,8 +6,12 @@ import { POINTS_TO_REFILL } from "@/constants";
 import { Divide, Link } from "lucide-react";
 import Image from "next/image";
 import { Router } from "next/router";
+import { useExitModal } from "@/store/use-exit-modal";
 import { useTransition } from "react";
 import { toast } from "sonner";
+import { usePremiumModal } from "@/store/use-premium-modal";
+import { useHeartsModal } from "@/store/use-hearts-modal";
+import { usePracticeModal } from "@/store/use-practice-modal";
 
 
 
@@ -20,7 +24,10 @@ type Props = {
 
 export const Items = ({hearts,points,hasActiveSubscription}:Props) => {
 
+    //const [pending, startTransition] = useTransition();
     const [pending, startTransition] = useTransition();
+
+    const {open} = usePremiumModal();
 
 
     const onRefillHearts = () => {
@@ -34,9 +41,10 @@ export const Items = ({hearts,points,hasActiveSubscription}:Props) => {
     };
 
     const onUpgrade = () => {
-        startTransition(()=> {
+        /*startTransition(()=> {
             window.location.href = 'https://wa.me/1234567890';
-        })
+        })*/
+       open()
     }
 
 
