@@ -43,7 +43,7 @@ export function SideBar({className}:Props){
             <SidebarItem 
             iconsSource="/shop.svg"
             label="Premium" 
-            href="/Premium"/>
+            href="/shop"/>
         </div>
 
         <div className="p-4">
