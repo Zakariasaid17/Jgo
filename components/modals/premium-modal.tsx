@@ -20,7 +20,7 @@ export const PremiumModal = () => {
 
     const wtsp = () => {
       startTransition(()=> {
-        window.open('https://wa.me/+21271515031', '_blank');
+        window.open('https://wa.me/+212715150031', '_blank');
     })
     };
 
