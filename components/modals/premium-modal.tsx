@@ -20,7 +20,7 @@ export const PremiumModal = () => {
 
     const wtsp = () => {
       startTransition(()=> {
-        window.open('https://wa.me/071515031', '_blank');
+        window.open('https://wa.me/+21271515031', '_blank');
     })
     };
 
@@ -35,9 +35,9 @@ export const PremiumModal = () => {
                     <div className='flex items-center justify-center mb-5 w-full'>
                         <Image
                           src='/angry.svg'
-                          alt='Mascot'
-                          height={100}
-                          width={100}
+                          alt='Jihawigo Prof'
+                          height={180}
+                          width={180}
                         />
                     </div>
                     <DialogTitle className='text-2xl font-bold text-center'>
@@ -50,7 +50,7 @@ export const PremiumModal = () => {
 
                 <DialogFooter className='mb-4'>
                     <div className='flex flex-col gap-y-4 w-full'>
-                        <Button variant='primary' className='w-full' size='lg' onClick={wtsp}>
+                        <Button variant='whatsapp' className='w-full' size='lg' onClick={wtsp}>
                         Contactez-nous sur WhatsApp !
                         </Button>
                         
