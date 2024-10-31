@@ -83,6 +83,13 @@ export const Quiz = ({
     const [selectedOption, setSelectedOption] = useState<number>();
     const [status, setStatus] = useState<'correct' | 'wrong' | 'none'>('none');
 
+     
+
+    const handleShowResponseClick = () => {
+        setShowResponse(true); // Show the response text
+        setShowResultClicked(true); // Enable the button in the footer
+    };
+
    
 
     useEffect(() => {
@@ -91,6 +98,10 @@ export const Quiz = ({
 
     const challenge = challenges[activeIndex];
     const options = challenge?.challengeOptions ?? [];
+
+    const [showResponse, setShowResponse] = useState(false);
+   const [showResultClicked, setShowResultClicked] = useState(false);
+  
 
     const onNext = () => {
         setActiveIndex((current) => {
@@ -172,29 +183,28 @@ export const Quiz = ({
     
 
     const onLessonContinue = () => {
-        console.log("onLessonContinue called, current activeIndex:", activeIndex);
         startTransition(() => {
             upsertChallengeProgress(challenge.id).then((response) => {
                 if (response?.error === 'hearts') {
-                    console.error('Missing Hearts');
                     openHeartsModal();
                     return;
                 }
-
+    
                 setStatus('correct');
                 setPercentage((prev) => prev + 100 / challenges.length);
-
+    
                 if (initialPercentage === 100) {
                     //setHearts((prev) => Math.min(prev + 1, 5));
                 }
-
+    
                 setActiveIndex((current) => {
                     const nextIndex = current + 1;
-                    console.log("Next activeIndex:", nextIndex);
                     return nextIndex;
                 });
                 setStatus('none');
                 setSelectedOption(undefined);
+                setShowResponse(false);
+                setShowResultClicked(false);
             }).catch(() => toast.error('Something went wrong. Please try again'));
         });
     };
@@ -261,6 +271,7 @@ export const Quiz = ({
                   lessonId={lessonId}
                   status="completed"
                   onCheck={()=> router.push('/learn')}
+                 
                 />
             </>
         )
@@ -295,49 +306,7 @@ export const Quiz = ({
                     {challenge.type === 'LESSON' && (
                         
                                  
-                            /*<>   
                             
-                            
-                             {!isArabic ? <h1 className="text-center font-bold text-lg text-neutral-700">{challenge.titleChallenge}</h1> : <h1 className="text-center font-bold text-2xl text-neutral-700">{challenge.titleChallenge}</h1>} 
-
-                                   
-
-                                    {isArabic ?<h1 className="mx-auto text-3xl font-extrabold text-red-600">{challenge.note}</h1> : <h1 className="mx-auto text-3xl font-extrabold text-red-600 ">{challenge.note}</h1>}         
-                           
-                                     {isArabic ? <p className="text-center text-2xl font-bold">{challenge.a}</p> : null}
-                                       
-                                <div className="flex items-center justify-between"> 
-
-                                    {challenge.teacherReaction ?  < QuestionBubbleLesson  question={title} teacherImage={challenge.teacherReaction!} status={status} isArabic={isArabic}/> : null}  
-
-                                   
-                                                      
-                                </div>
-
-                                {challenge.exempleImage ? <Image src={`https://d2s52ygkl5mwct.cloudfront.net/${challenge.exempleImage}`} alt="exemple" height={50} width={450} className="mx-auto lg:w-[500px] "/> : null}
-
-                                
-                            {challenge.video ? 
-                                 <video
-                                   src={`https://d2s52ygkl5mwct.cloudfront.net/${challenge.video}`}
-                                   autoPlay
-                                   controls
-                                   controlsList="nodownload"
-                                   className="w-full rounded-2xl"
-                                   onContextMenu={(e) => e.preventDefault()}
-                                 /> : null }
-  
-
-                                
-                                
-
-                                {!isArabic ? <ul className=" font-bold text-md">
-                                        <li className="mb-3">{challenge.a}</li>
-                                        <li className="mb-3">{challenge.b}</li>
-                                        <li>{challenge.c}</li>
-                                    </ul> : null}
-
-                                </>*/
                            
                       <div className="flex-1  mt-20 mb-20 lg:mt-20 lg:mb-20 ">
 
@@ -487,153 +456,172 @@ export const Quiz = ({
 
                                   </> : <> {challenge.titleChallenge ? <h1 className="text-start font-bold lg:text-6xl text-4xl font-Poppins text-blue-600 mt-10">{challenge.titleChallenge}</h1> : null}
 
-{challenge.question !== ' ' ? <div className="mt-[50px]">
-    <h2 className="font-bold font-Poppins lg:text-3xl text-2xl text-blue-900">Explication:</h2>
+                                {challenge.question !== ' ' ? <div className="mt-[50px]">
+                                      <h2 className="font-bold font-Poppins lg:text-3xl text-2xl text-blue-900">Explication:</h2>
 
-    <p className=" mt-[20px] font-bold font-Poppins text-xl lg:text-2xl">{challenge.question}</p>
+                                      <p className=" mt-[20px] font-bold font-Poppins text-xl lg:text-2xl">{challenge.question}</p>
 
-    {challenge.one ?<div className="mt-7">
-        {challenge.one ? <p className="font-Poppins font-bold lg:text-xl ">{challenge.one}</p> : null}
-        {challenge.two ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.two}</p> : null}
-        {challenge.three ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.three}</p> : null}
-        {challenge.four ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.four}</p> : null}
-        {challenge.five ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.five}</p> : null}
-        {challenge.six ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.six}</p> : null}
+                                {challenge.one ?<div className="mt-7">
+                                      {challenge.one ? <p className="font-Poppins font-bold lg:text-xl ">{challenge.one}</p> : null}
+                                      {challenge.two ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.two}</p> : null}
+                                      {challenge.three ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.three}</p> : null}
+                                      {challenge.four ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.four}</p> : null}
+                                      {challenge.five ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.five}</p> : null}
+                                      {challenge.six ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.six}</p> : null}
 
-    </div> : null}
+                                </div> : null}
 
 
     
-  </div> : null}
+                                 </div> : null}
 
-  { challenge.example ? <div className="mt-[50px] bg-blue-500 p-5 rounded-xl">
-  <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-white">Exemple:</h2>
+                             { challenge.example ? <div className="mt-[50px] bg-blue-500 p-5 rounded-xl">
+                                        <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-white">Exemple:</h2>
 
-  {challenge.aiImage ? <Image className="m-auto mt-[20px] rounded-xl"
-         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.aiImage}`}
-         alt="image"
-         height={220}
-         width={420}
-         /> : null}
+                             {challenge.aiImage ? <Image className="m-auto mt-[20px] rounded-xl"
+                                     src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.aiImage}`}
+                                     alt="image"
+                                     height={220}
+                                     width={420}
+                             /> : null}
 
-  <p className="mt-[20px] font-bold font-Poppins lg:text-2xl text-xl text-white">{challenge.example}</p>
+                         <p className="mt-[20px] font-bold font-Poppins lg:text-2xl text-xl text-white">{challenge.example}</p>
 
-  { challenge.sousExemple ? <p className="mt-[20px] font-bold font-Poppins lg:text-xl text-xl text-white">{challenge.sousExemple}</p> : null}
+                             { challenge.sousExemple ? <p className="mt-[20px] font-bold font-Poppins lg:text-xl text-xl text-white">{challenge.sousExemple}</p> : null}
 
-    {challenge.a ?<div className="mt-7">
-        {challenge.a ? <p className="font-Poppins font-bold text-white lg:text-xl ">{challenge.a}</p> : null}
-        {challenge.b ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.b}</p> : null}
-        {challenge.c ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.c}</p> : null}
-        {challenge.d ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.d}</p> : null}
-        {challenge.e ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.e}</p> : null}
-        {challenge.f ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.f}</p> : null}
+                             {challenge.a ?<div className="mt-7">
+                                 {challenge.a ? <p className="font-Poppins font-bold text-white lg:text-xl ">{challenge.a}</p> : null}
+                                 {challenge.b ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.b}</p> : null}
+                                 {challenge.c ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.c}</p> : null}
+                                 {challenge.d ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.d}</p> : null}
+                                 {challenge.e ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.e}</p> : null}
+                                 {challenge.f ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.f}</p> : null}
 
-    </div> : null}
+                             </div> : null}
 
-    <p className="mt-[40px] font-bold font-Poppins lg:text-2xl text-xl text-white">{challenge.example2}</p>
+                        <p className="mt-[40px] font-bold font-Poppins lg:text-2xl text-xl text-white">{challenge.example2}</p>
 
-  { challenge.sousExemple2 ? <p className="mt-[20px] font-bold font-Poppins lg:text-xl text-xl text-white">{challenge.sousExemple2}</p> : null}
+                             { challenge.sousExemple2 ? <p className="mt-[20px] font-bold font-Poppins lg:text-xl text-xl text-white">{challenge.sousExemple2}</p> : null}
 
-    {challenge.a2 ?<div className="mt-7">
-        {challenge.a2 ? <p className="font-Poppins font-bold text-white lg:text-xl ">{challenge.a2}</p> : null}
-        {challenge.b2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.b2}</p> : null}
-        {challenge.c2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.c2}</p> : null}
-        {challenge.d2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.d2}</p> : null}
-        {challenge.e2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.e2}</p> : null}
-        {challenge.f2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.f2}</p> : null}
+                             {challenge.a2 ?<div className="mt-7">
+                                {challenge.a2 ? <p className="font-Poppins font-bold text-white lg:text-xl ">{challenge.a2}</p> : null}
+                                {challenge.b2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.b2}</p> : null}
+                                {challenge.c2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.c2}</p> : null}
+                                {challenge.d2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.d2}</p> : null}
+                                {challenge.e2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.e2}</p> : null}
+                                {challenge.f2 ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.f2}</p> : null}
 
-    </div> : null}
+                            </div> : null}
 
     
 
 
-  </div> : null}
+                             </div> : null}
 
 
-
-
-
-
-  {challenge.exempleImage ? <div className="mt-[50px]">
+                            {challenge.exempleImage ? <div className="mt-[50px]">
   
 
-  <Image className="mt-[20px] rounded-xl"
-         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.exempleImage}`}
-         alt="image"
-         height={120}
-         width={980}
-         />
+                             <Image className="mt-[20px] rounded-xl"
+                                  src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.exempleImage}`}
+                                  alt="image"
+                                  height={120}
+                                  width={980}
+                             />
 
-  </div> : null}
-
-
-
-  {challenge.video ? <div className="mt-[50px]">
-  <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-blue-900">Vidéo Explicative:</h2>
-
-  <video className="mt-[20px] rounded-xl"
-         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.video}`}
-         controls
-         controlsList="nodownload"
-         onContextMenu={(e) => e.preventDefault()}
-         />
-
-  </div> : null}
+                            </div> : null}
 
 
 
+                          {challenge.video ? <div className="mt-[50px]">
+                                <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-blue-900">Vidéo Explicative:</h2>
+
+                                <video className="mt-[20px] rounded-xl"
+                                   src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.video}`}
+                                   controls
+                                   controlsList="nodownload"
+                                   onContextMenu={(e) => e.preventDefault()}
+                                />
+
+                             </div> : null}
 
 
-  { challenge.aretenir ? <div className="mt-[50px] bg-blue-500 p-5 rounded-xl">
-  <h2 className=" font-bold font-Poppins lg:text-3xl text-2xl text-white">A retenir :</h2>
-
-  {challenge.aretenir !== ' ' ?<p className="mt-[10px] font-bold font-Poppins text-md lg:text-xl text-white">{challenge.aretenir}</p> : null}
-
-  { challenge.retenirA ? <div className="mt-5">
-        {challenge.retenirA ? <p className="font-Poppins font-bold text-white lg:text-xl ">{challenge.retenirA}</p> : null}
-        {challenge.retenirB ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.retenirB}</p> : null}
-        {challenge.retenirC ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.retenirC}</p> : null}
-        {challenge.retenirD ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.retenirD}</p> : null}
-  </div> : null}
-  </div> : null}   
 
 
-  </> }
+
+                      { challenge.aretenir ? <div className="mt-[50px] bg-blue-500 p-5 rounded-xl">
+                                <h2 className=" font-bold font-Poppins lg:text-3xl text-2xl text-white">A retenir :</h2>
+
+                        {challenge.aretenir !== ' ' ?<p className="mt-[10px] font-bold font-Poppins text-md lg:text-xl text-white">{challenge.aretenir}</p> : null}
+
+                            { challenge.retenirA ? <div className="mt-5">
+                                {challenge.retenirA ? <p className="font-Poppins font-bold text-white lg:text-xl ">{challenge.retenirA}</p> : null}
+                                {challenge.retenirB ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.retenirB}</p> : null}
+                                {challenge.retenirC ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.retenirC}</p> : null}
+                                {challenge.retenirD ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.retenirD}</p> : null}
+                            </div> : null}
+                        </div> : null}   
+
+
+                      </> }
 
                                
 
 
                                                              
-                              </div>
-                                  
+                    </div>)} 
 
 
+                    <div>
+                {challenge.type === 'SELECT' && (
+                    <div className="mb-[45px]"> 
+                        <div className="flex flex-col justify-center items-center">
+                            {challenge.isArabic ? (
+                                <h1 className="font-bold font-Messiri text-4xl lg:text-4xl text-red-600 lg:mt-10">test</h1>
+                            ) : (
+                                <h1 className="font-extrabold font-Poppins text-3xl lg:text-4xl text-red-600 lg:mt-10">test</h1>
+                            )}
 
+                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
+                                What is the test test test?
+                            </div>
 
-                                )
+                            {/* Conditional rendering for response */}
+                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
+                                {showResponse ? (
+                                    <span>Here is the response you wanted!</span> // Text to show after button click
+                                ) : (
+                                    <span>This text will appear when the response is hidden.</span> // Text to show when the response is hidden
+                                )}
+                            </div>
 
-                            
-                            } 
+                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
+                                {!showResponse && ( // Show the button only if the response is hidden
+                                    <button onClick={handleShowResponseClick} className="bg-blue-500 text-white p-2 rounded">
+                                        Show Response
+                                    </button>
+                                )}
+                            </div>
+                        </div>
+                    </div>
+                )}
+            </div>
 
 
                             
                             
                         
                  
-                        <div >  
-
-
-                            <>{challenge.type === 'ASSIST' && (
+                <div >  
+                <>
+                {challenge.type === 'ASSIST' && (
                                 <div className="mb-[45px]"> 
                                 <div className="flex justify-center">           
                                 {challenge.isArabic ?<h1 className="font-bold font-Messiri text-4xl lg:text-4xl text-red-600  lg:mt-10">{challenge.note}</h1> : <h1 className=" font-extrabold font-Poppins text-3xl lg:text-4xl text-red-600  lg:mt-10">{challenge.note}</h1>}
                                 </div>
                                 < QuestionBubble  question={title}  status={status} isArabic={isArabic} />                                         
                                 </div>
-                            )}</>
-
-                            
-                 
+                )}</>
 
                                  
                             <Challenge
@@ -649,16 +637,35 @@ export const Quiz = ({
 
                   </div>
                         
-                    </div>
+                </div>
                                    
                 </div>
             </div>
+
+            
             
             <Footer
-                disabled={challenge.type === 'LESSON' ? pending : pending || !selectedOption}
-                status={challenge.type !== 'LESSON' ? status : 'LESSON'}
-                onCheck={challenge.type === 'LESSON' ? onLessonContinue : onContinue}
-            />
+    disabled={
+        challenge.type === 'LESSON' 
+            ? pending 
+            : challenge.type === 'SELECT'
+                ? !showResultClicked
+                : pending || !selectedOption
+    }
+    status={
+        challenge.type === 'LESSON'
+            ? 'LESSON'
+            : challenge.type === 'SELECT'
+                ? showResultClicked ? 'SELECT' : 'none'
+                : status
+    }
+    onCheck={
+        challenge.type === 'LESSON' || challenge.type === 'SELECT'
+            ? onLessonContinue
+            : onContinue
+    }
+    lessonId={lessonId}
+/>
         </>
     );
 };

@@ -1,6 +1,6 @@
 import { cache } from 'react';
 import db from '@/db/drizzle';
-import { auth } from '@clerk/nextjs/server';
+import { auth, clerkClient } from '@clerk/nextjs/server';
 import {
     challengeOptions,
     challengeProgress,
@@ -12,6 +12,7 @@ import {
     userSubscription
 } from '@/db/schema';
 import { eq, asc, desc } from 'drizzle-orm';
+import { email } from 'react-admin';
 
 // Helper to get authenticated userId safely
 const getAuthenticatedUserId = async (): Promise<string | null> => {
@@ -225,7 +226,7 @@ export const getUserSubscription = cache(async () => {
 export const getTopTenUsers = cache(async () => {
     const data = await db.query.userProgress.findMany({
         orderBy: [desc(userProgress.points)],
-        limit: 10,
+        limit: 50,
     });
 
     // Map the data to extract necessary fields
@@ -233,6 +234,7 @@ export const getTopTenUsers = cache(async () => {
         userId: userProgress.userId,
         userName: userProgress.userName || 'User', // Assuming you have this field in userProgress
         userImgSrc: userProgress.userImgSrc || '/default-avatar.svg', // Assuming you have this field in userProgress
+        email : userProgress.email,
         points: userProgress.points,
     }));
 });

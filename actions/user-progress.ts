@@ -55,7 +55,7 @@ export const upsertUserProgress = async (courseId: number) => {
         activeCourseId: courseId,
         userName: user.firstName || 'User',
         userImgSrc: user.imageUrl || '/mascot.svg',
-        //email: user.primaryEmailAddress?.emailAddress
+        email: user.primaryEmailAddress?.emailAddress
 
     });
 
