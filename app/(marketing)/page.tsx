@@ -69,7 +69,7 @@ export default function Home() {
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="flex-1 max-w-xl">
               <h1 className="text-4xl lg:text-5xl font-bold text-black/80 font-Poppins mb-6 text-center lg:text-start">
-              1 Bac, C'est Facile Avec Jihawigo              </h1>
+              1 Bac, C&apos;est Facile Avec Jihawigo              </h1>
               <p className="text-xl mb-8 text-black/90 font-Poppins text-center lg:text-start">
               Avec Jihawigo, la révision du Jihawi devient simple, interactive et efficace pour assurer votre réussite.              </p>
               <div className="space-y-4">
@@ -81,14 +81,14 @@ export default function Home() {
                   </SignUpButton>
                   <SignInButton mode="modal">
                     <Button variant='primaryOutline' size="lg" className="w-full lg:w-auto border-2 text-lg font-bold px-8">
-                      J'ai déjà un compte
+                      J&apos;ai déjà un compte
                     </Button>
                   </SignInButton>
                 </SignedOut>
                 <SignedIn>
                   <Button size="lg" className="w-full lg:w-auto bg-white text-blue-500 hover:bg-white/90 text-lg font-bold px-8" asChild>
                     <Link href='/learn'>
-                      Continuer l'apprentissage
+                      Continuer l&apos;apprentissage
                     </Link>
                   </Button>
                 </SignedIn>
@@ -183,7 +183,7 @@ export default function Home() {
       <section className="py-16 bg-blue-100">
         <div className="max-w-[1200px] mx-auto px-4">
           <h2 className="text-2xl lg:text-4xl font-bold text-center mb-12 text-gray-800">
-            Commencez votre apprentissage aujourd'hui
+            Commencez votre apprentissage aujourd&apos;hui
           </h2>
           <div className="bg-white rounded-2xl shadow-lg max-w-md mx-auto overflow-hidden">
             <div className="bg-blue-500 p-4 text-center text-white">
