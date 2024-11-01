@@ -1,8 +1,14 @@
 import Image from "next/image";
 import { Button } from '../../components/ui/button';
 import { ClerkLoaded, ClerkLoading, SignInButton, SignUpButton, SignedIn, SignedOut } from "@clerk/nextjs";
-import { Loader, BookOpen, GraduationCap, ScrollText, Star, ArrowRight, Ghost } from "lucide-react";
 import Link from "next/link";
+import { Star, GraduationCap, BookOpen } from "lucide-react"; // Only import specific icons
+
+// Use optimized font import
+import { Poppins, El_Messiri} from 'next/font/google';
+
+const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
+const messiri = El_Messiri({ subsets: ['arabic'] });
 
 const subjects = [
   {
@@ -68,10 +74,12 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto px-4 py-16">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="flex-1 max-w-xl">
-              <h1 className="text-4xl lg:text-5xl font-bold text-black/80 font-Poppins mb-6 text-center lg:text-start">
-              1 Bac, C&apos;est Facile Avec Jihawigo              </h1>
-              <p className="text-xl mb-8 text-black/90 font-Poppins text-center lg:text-start">
-              Avec Jihawigo, la révision du Jihawi devient simple, interactive et efficace pour assurer votre réussite.              </p>
+              <h1 className={`text-4xl lg:text-5xl font-bold text-black/80 ${poppins.className} mb-6 text-center lg:text-start`}>
+                1 Bac, C&apos;est Facile Avec Jihawigo
+              </h1>
+              <p className={`text-xl mb-8 text-black/90 ${poppins.className} text-center lg:text-start`}>
+                Avec Jihawigo, la révision Jihawi devient simple, interactive et efficace pour assurer votre réussite.
+              </p>
               <div className="space-y-4">
                 <SignedOut>
                   <SignUpButton mode="modal">
@@ -94,7 +102,8 @@ export default function Home() {
                 </SignedIn>
               </div>
             </div>
-            <div className="relative w-[340px] h-[340px] lg:w-[440px] lg:h-[440px]">
+            {/* Lazy-load Hero Image */}
+            <div className="relative w-[300px] h-[300px] lg:w-[440px] lg:h-[440px]">
               <Image src='/book.webp' fill alt="Learning illustration" priority className="object-contain" />
             </div>
           </div>
@@ -140,19 +149,20 @@ export default function Home() {
                 className="bg-white rounded-xl shadow-lg p-6 w-full hover:shadow-xl transition-shadow duration-300"
               >
                 <div className="flex flex-col items-center space-y-4">
-                  {/* Image Container */}
-                  <div className=" relative mb-4">
+                  {/* Lazy-Loaded Subject Image */}
+                  <div className="relative mb-4">
                     <Image
                       src={subject.image}
                       alt={subject.title}
                       height={180}
                       width={180}
+                      loading="lazy" // Use lazy-loading for these images
                       className="object-contain"
                     />
                   </div>
 
                   {/* Title - Always Centered */}
-                  <h3 className="text-3xl font-bold font-Messiri text-gray-800 mb-2 text-center w-full">
+                  <h3 className={`text-3xl font-bold ${messiri.className} text-gray-800 mb-2 text-center w-full`}>
                     {subject.title}
                   </h3>
 
@@ -164,7 +174,6 @@ export default function Home() {
                           key={idx}
                           className="flex items-center justify-center gap-2"
                         >
-                         
                           <span className="text-gray-600 font-bold font-Messiri text-md text-center">
                             {work}
                           </span>
@@ -209,18 +218,11 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              <SignedOut>
-                <SignUpButton mode="modal">
-                  <Button variant='primary' className="w-full py-4 font-bold text-lg transition-colors">
-                    Commencer maintenant
-                  </Button>
-                </SignUpButton>
-              </SignedOut>
-              <SignedIn>
-                <Button size="lg" className="w-full bg-blue-500 text-white text-lg">
-                  Accéder à mon compte
+              <div className="flex justify-center">
+                <Button variant='primary' size="lg" className="w-full lg:w-auto text-lg px-8">
+                  Je m&apos;inscris
                 </Button>
-              </SignedIn>
+              </div>
             </div>
           </div>
         </div>
