@@ -1,10 +1,12 @@
+import { date } from "drizzle-orm/mysql-core";
 import {  MetadataRoute } from "next";
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
 
     return[
           {
-            url: `https://jihawigo.com`
+            url: `https://jihawigo.com`,
+            lastModified: new Date()
           }
     ]
     
