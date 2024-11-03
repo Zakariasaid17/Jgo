@@ -1,17 +1,20 @@
 import type { Metadata } from "next";
 import { ClerkProvider } from '@clerk/nextjs'
 import { Toaster } from "@/components/ui/sonner";
-import { Nunito } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { ExitModal } from "@/components/modals/exit-modal";
 import { HeartsModal } from "@/components/modals/hearts-modal";
 import { PracticeModal } from "@/components/modals/practice-modal";
 import { PremiumModal } from "@/components/modals/premium-modal";
 
-const font = Nunito({ subsets: ["latin"] });
+const font = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "JihawiGo",
+  title: {
+      default: 'Jihawigo',
+      template: '%s - Jihawigo'
+  },
   description: "Transformez vos révisions en succès avec JihawiGo",
   
 };

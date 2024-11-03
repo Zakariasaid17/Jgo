@@ -4,11 +4,8 @@ import { ClerkLoaded, ClerkLoading, SignInButton, SignUpButton, SignedIn, Signed
 import Link from "next/link";
 import { Star, GraduationCap, BookOpen } from "lucide-react"; // Only import specific icons
 
-// Use optimized font import
-import { Poppins, El_Messiri} from 'next/font/google';
 
-const poppins = Poppins({ subsets: ['latin'], weight: ['400', '600', '700'] });
-const messiri = El_Messiri({ subsets: ['arabic'] });
+
 
 const subjects = [
   {
@@ -74,10 +71,10 @@ export default function Home() {
         <div className="max-w-[1200px] mx-auto px-4 py-16">
           <div className="flex flex-col lg:flex-row items-center justify-between gap-12">
             <div className="flex-1 max-w-xl">
-              <h1 className={`text-4xl lg:text-5xl font-bold text-black/80 ${poppins.className} mb-6 text-center lg:text-start`}>
+              <h1 className={`text-4xl lg:text-5xl font-bold text-black/80 mb-6 text-center lg:text-start`}>
                 1 Bac, C&apos;est Facile Avec Jihawigo
               </h1>
-              <p className={`text-xl mb-8 text-black/90 ${poppins.className} text-center lg:text-start`}>
+              <p className={`text-xl mb-8 text-black/90 text-center lg:text-start`}>
                 Avec Jihawigo, la révision Jihawi devient simple, interactive et efficace pour assurer votre réussite.
               </p>
               <div className="space-y-4">
@@ -162,7 +159,7 @@ export default function Home() {
                   </div>
 
                   {/* Title - Always Centered */}
-                  <h3 className={`text-3xl font-bold ${messiri.className} text-gray-800 mb-2 text-center w-full`}>
+                  <h3 className={`text-3xl font-bold  text-gray-800 mb-2 text-center w-full`}>
                     {subject.title}
                   </h3>
 
@@ -174,7 +171,7 @@ export default function Home() {
                           key={idx}
                           className="flex items-center justify-center gap-2"
                         >
-                          <span className="text-gray-600 font-bold font-Messiri text-md text-center">
+                          <span className="text-gray-600 font-bold  text-md text-center">
                             {work}
                           </span>
                         </li>
@@ -196,12 +193,12 @@ export default function Home() {
           </h2>
           <div className="bg-white rounded-2xl shadow-lg max-w-md mx-auto overflow-hidden">
             <div className="bg-blue-500 p-4 text-center text-white">
-              <p className="text-sm font-bold font-Poppins uppercase">Offre spéciale</p>
+              <p className="text-sm font-bold  uppercase">Offre spéciale</p>
             </div>
             <div className="p-8">
               <div className="text-center mb-8">
-                <p className="text-4xl font-bold font-Poppins text-gray-800">300 DH</p>
-                <p className="text-gray-600 font-Poppins">par an</p>
+                <p className="text-4xl font-bold  text-gray-800">300 DH</p>
+                <p className="text-gray-600 ">par an</p>
               </div>
               <ul className="space-y-4 mb-8">
                 {[
@@ -210,7 +207,7 @@ export default function Home() {
                   "Tests et exercices pratiques",
                   "Support pédagogique personnalisé"
                 ].map((feature, index) => (
-                  <li key={index} className="flex items-center gap-3 font-Poppins">
+                  <li key={index} className="flex items-center gap-3 ">
                     <svg className="h-5 w-5 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
                     </svg>
