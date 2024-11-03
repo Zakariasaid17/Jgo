@@ -1,5 +1,13 @@
 import { getCourses, getUserProgress } from "@/db/queries"
 import { List } from "./List";
+import { Metadata } from "next";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+    return{
+        title: 'Courses'
+    }
+}
 
 
 async function Page (){

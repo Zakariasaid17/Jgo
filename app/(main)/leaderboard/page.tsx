@@ -6,8 +6,15 @@ import { Avatar, AvatarImage } from "@/components/ui/avatar";
 import { Separator } from "@/components/ui/separator";
 import { UserProgress } from "@/components/user-progress";
 import { getTopTenUsers, getUserProgress, getUserSubscription } from "@/db/queries";
+import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
+
+export async function generateMetadata(): Promise<Metadata> {
+    return{
+        title: 'Leaderboard'
+    }
+}
 
 const LeaderboardPage = async () => {
     const userProgressData = getUserProgress();

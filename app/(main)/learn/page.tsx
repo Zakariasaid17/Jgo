@@ -14,6 +14,14 @@ import { Unit } from "./unit"
 import { courses, lessons , units as unitsSchema } from "@/db/schema"
 import { Promo } from "@/components/promo"
 import { Quests } from "@/components/quests"
+import { Metadata } from "next"
+
+
+export async function generateMetadata(): Promise<Metadata> {
+    return{
+        title: 'Learn'
+    }
+}
 
 
 async function LearnPage (){

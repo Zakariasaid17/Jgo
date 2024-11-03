@@ -7,6 +7,14 @@ import Image from "next/image";
 import { redirect } from "next/navigation";
 import { Items } from "./items";
 import { Quests } from "@/components/quests";
+import { Metadata } from "next";
+
+
+export async function generateMetadata(): Promise<Metadata> {
+  return{
+      title: 'Shop'
+  }
+}
 
 
 const ShopPage = async () => {

@@ -7,9 +7,16 @@ import { UserProgress } from "@/components/user-progress"
 import { quests } from "@/constants";
 import { getTopTenUsers, getUserProgress, getUserSubscription } from "@/db/queries"
 import { userProgress } from "@/db/schema";
+import { Metadata } from "next";
 import Image from "next/image";
 import { redirect } from "next/navigation";
 import { title } from "process";
+
+export async function generateMetadata(): Promise<Metadata> {
+  return{
+      title: 'Quests'
+  }
+}
 
 
 
@@ -26,6 +33,8 @@ const QuestsPage = async () => {
     }
 
     const isPro = !!userSubscription?.isActive;
+
+    
 
   return (
     <div className="flex flex-row-reverse gap-[48px] px-6">
