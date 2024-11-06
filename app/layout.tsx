@@ -8,6 +8,8 @@ import { HeartsModal } from "@/components/modals/hearts-modal";
 import { PracticeModal } from "@/components/modals/practice-modal";
 import { PremiumModal } from "@/components/modals/premium-modal";
 import { Analytics } from "@vercel/analytics/react"
+import Head from "next/head";
+
 
 const font = Inter({ subsets: ["latin"] });
 
@@ -26,7 +28,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+
+    
     <ClerkProvider>
+
+      <head>
+        <link rel="canonical" href="https://www.jihawigo.com/" />
+      </head>
+    
     <html lang="fr">
       <body className={font.className}>
         <Toaster/>
@@ -38,6 +47,7 @@ export default function RootLayout({
         <Analytics />
         </body>
     </html>
+   
     </ClerkProvider>
   );
 }
