@@ -32,9 +32,10 @@ export default function RootLayout({
     
     <ClerkProvider>
 
-      <head>
+      <Head>
         <link rel="canonical" href="https://www.jihawigo.com/" />
-      </head>
+        <meta name="robots" content="index, follow" />
+      </Head>
     
     <html lang="fr">
       <body className={font.className}>

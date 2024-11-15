@@ -579,26 +579,26 @@ export const Quiz = ({
                             {challenge.isArabic ? (
                                 <h1 className="font-bold font-Messiri text-4xl lg:text-4xl text-red-600 lg:mt-10">test</h1>
                             ) : (
-                                <h1 className="font-extrabold font-Poppins text-3xl lg:text-4xl text-red-600 lg:mt-10">test</h1>
+                                <h1 className="font-extrabold font-Poppins text-xl lg:text-2xl text-red-600 lg:mt-10">{challenge.note}</h1>
                             )}
 
-                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
-                                What is the test test test?
+                            <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-xl lg:text-2xl">
+                                {challenge.question}
                             </div>
 
                             {/* Conditional rendering for response */}
-                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
+                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-xl lg:text-3xl">
                                 {showResponse ? (
-                                    <span>Here is the response you wanted!</span> // Text to show after button click
+                                    <span>{challenge.sousQuestion}</span> // Text to show after button click
                                 ) : (
-                                    <span>This text will appear when the response is hidden.</span> // Text to show when the response is hidden
+                                    <span>______________</span> // Text to show when the response is hidden
                                 )}
                             </div>
 
-                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
+                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-xl lg:text-2xl">
                                 {!showResponse && ( // Show the button only if the response is hidden
-                                    <button onClick={handleShowResponseClick} className="bg-blue-500 text-white p-2 rounded">
-                                        Show Response
+                                    <button onClick={handleShowResponseClick} className="bg-green-500 text-white p-2 rounded">
+                                        Afficher la réponse
                                     </button>
                                 )}
                             </div>
