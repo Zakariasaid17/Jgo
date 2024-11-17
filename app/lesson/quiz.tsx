@@ -462,12 +462,12 @@ export const Quiz = ({
                                       <p className=" mt-[20px] font-bold font-Poppins text-xl lg:text-2xl">{challenge.question}</p>
 
                                 {challenge.one ?<div className="mt-7">
-                                      {challenge.one ? <p className="font-Poppins font-bold lg:text-xl ">{challenge.one}</p> : null}
-                                      {challenge.two ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.two}</p> : null}
-                                      {challenge.three ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.three}</p> : null}
-                                      {challenge.four ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.four}</p> : null}
-                                      {challenge.five ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.five}</p> : null}
-                                      {challenge.six ? <p className="mt-[10px] font-Poppins font-bold lg:text-xl ">{challenge.six}</p> : null}
+                                      {challenge.one ? <p className="font-Poppins lg:text-xl ">{challenge.one}</p> : null}
+                                      {challenge.two ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.two}</p> : null}
+                                      {challenge.three ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.three}</p> : null}
+                                      {challenge.four ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.four}</p> : null}
+                                      {challenge.five ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.five}</p> : null}
+                                      {challenge.six ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.six}</p> : null}
 
                                 </div> : null}
 
@@ -476,7 +476,7 @@ export const Quiz = ({
                                  </div> : null}
 
                              { challenge.example ? <div className="mt-[50px] bg-blue-500 p-5 rounded-xl">
-                                        <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-white">Exemple:</h2>
+                                        <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-white">Exemples:</h2>
 
                              {challenge.aiImage ? <Image className="m-auto mt-[20px] rounded-xl"
                                      src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.aiImage}`}
@@ -490,12 +490,12 @@ export const Quiz = ({
                              { challenge.sousExemple ? <p className="mt-[20px] font-bold font-Poppins lg:text-xl text-xl text-white">{challenge.sousExemple}</p> : null}
 
                              {challenge.a ?<div className="mt-7">
-                                 {challenge.a ? <p className="font-Poppins font-bold text-white lg:text-xl ">{challenge.a}</p> : null}
-                                 {challenge.b ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.b}</p> : null}
-                                 {challenge.c ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.c}</p> : null}
-                                 {challenge.d ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.d}</p> : null}
-                                 {challenge.e ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.e}</p> : null}
-                                 {challenge.f ? <p className="mt-[10px] font-Poppins text-white font-bold lg:text-xl ">{challenge.f}</p> : null}
+                                 {challenge.a ? <p className="font-Poppins text-white lg:text-xl ">{challenge.a}</p> : null}
+                                 {challenge.b ? <p className="mt-[10px] font-Poppins text-white lg:text-xl ">{challenge.b}</p> : null}
+                                 {challenge.c ? <p className="mt-[10px] font-Poppins text-white lg:text-xl ">{challenge.c}</p> : null}
+                                 {challenge.d ? <p className="mt-[10px] font-Poppins text-white lg:text-xl ">{challenge.d}</p> : null}
+                                 {challenge.e ? <p className="mt-[10px] font-Poppins text-white lg:text-xl ">{challenge.e}</p> : null}
+                                 {challenge.f ? <p className="mt-[10px] font-Poppins text-white lg:text-xl ">{challenge.f}</p> : null}
 
                              </div> : null}
 
