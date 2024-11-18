@@ -582,7 +582,7 @@ export const Quiz = ({
                                 <h1 className="font-extrabold font-Poppins text-xl lg:text-2xl text-red-600 lg:mt-10">{challenge.note}</h1>
                             )}
 
-                            <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-xl lg:text-2xl">
+                            <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-[14px] lg:text-2xl">
                                 {challenge.question}
                                
 
