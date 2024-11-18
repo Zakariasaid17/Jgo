@@ -574,7 +574,7 @@ export const Quiz = ({
 
                     <div>
                 {challenge.type === 'SELECT' && (
-                    <div className="mb-[45px]"> 
+                    <div className="mb-20"> 
                         <div className="flex flex-col justify-center items-center">
                             {challenge.isArabic ? (
                                 <h1 className="font-bold font-Messiri text-4xl lg:text-4xl text-red-600 lg:mt-10">test</h1>
@@ -584,7 +584,24 @@ export const Quiz = ({
 
                             <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-xl lg:text-2xl">
                                 {challenge.question}
+                               
+
                             </div>
+                            
+                            {challenge.exempleImage ? <div className="mt-[5px]">
+                                  
+                                  
+
+                                  <Image className="mt-[20px] rounded-xl"
+                                         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.exempleImage}`}
+                                         alt="image"
+                                         height={120}
+                                         width={980}
+                                         />
+
+                                  </div> : null}
+
+                           
 
                             {/* Conditional rendering for response */}
                             <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-xl lg:text-3xl">
