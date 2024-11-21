@@ -459,15 +459,15 @@ export const Quiz = ({
                                 {challenge.question !== ' ' ? <div className="mt-[50px]">
                                       <h2 className="font-bold font-Poppins lg:text-3xl text-2xl text-blue-900">Explication:</h2>
 
-                                      <p className=" mt-[20px] font-bold font-Poppins text-xl lg:text-2xl">{challenge.question}</p>
+                                      <p className=" mt-[20px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.question}</p>
 
                                 {challenge.one ?<div className="mt-7">
-                                      {challenge.one ? <p className="font-Poppins lg:text-xl ">{challenge.one}</p> : null}
-                                      {challenge.two ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.two}</p> : null}
-                                      {challenge.three ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.three}</p> : null}
-                                      {challenge.four ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.four}</p> : null}
-                                      {challenge.five ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.five}</p> : null}
-                                      {challenge.six ? <p className="mt-[10px] font-Poppins lg:text-xl ">{challenge.six}</p> : null}
+                                      {challenge.one ? <p className="font-Poppins text-lg ">{challenge.one}</p> : null}
+                                      {challenge.two ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.two}</p> : null}
+                                      {challenge.three ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.three}</p> : null}
+                                      {challenge.four ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.four}</p> : null}
+                                      {challenge.five ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.five}</p> : null}
+                                      {challenge.six ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.six}</p> : null}
 
                                 </div> : null}
 
@@ -587,24 +587,18 @@ export const Quiz = ({
                                
 
                             </div>
+
+
+                            {challenge.one ? 
+                                <div className="flex flex-col justify-center mt-[20px]">
+                                     <p className="text-[12px] lg:text-[16px] font-Poppins font-semibold">{challenge.one}</p>
+                                     <p className="text-[10px] lg:text-[12px] font-Poppins font-extrabold text-start mt-[8px]">{challenge.two}</p>
+                                </div>
+                            : null}
+
                             
-                            {challenge.exempleImage ? <div className="mt-[5px]">
-                                  
-                                  
-
-                                  <Image className="mt-[20px] rounded-xl"
-                                         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.exempleImage}`}
-                                         alt="image"
-                                         height={120}
-                                         width={980}
-                                         />
-
-                                  </div> : null}
-
-                           
-
                             {/* Conditional rendering for response */}
-                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-xl lg:text-3xl">
+                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-[14px] lg:text-2xl">
                                 {showResponse ? (
                                     <span>{challenge.sousQuestion}</span> // Text to show after button click
                                 ) : (
