@@ -409,7 +409,7 @@ export const Quiz = ({
                                   </div> : null}
 
 
-                                  {challenge.exempleImage2 ? <div className="mt-[10px]">
+                                  {challenge.exempleImage2 ? <div className="mt-[50px]">
                                   
                                   
 
@@ -421,6 +421,11 @@ export const Quiz = ({
                                          />
 
                                   </div> : null}
+
+                                  
+
+                               
+
 
 
 
@@ -531,6 +536,20 @@ export const Quiz = ({
 
                             </div> : null}
 
+                            {challenge.exempleImage2 ? <div className="mt-[50px]">
+
+                                <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-blue-900">Exemples:</h2>
+  
+
+                              <Image className="mt-[20px] rounded-xl"
+                                  src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.exempleImage2}`}
+                                  alt="image"
+                                  height={120}
+                                  width={980}
+                               />
+                               
+                            </div> : null}
+
 
 
                           {challenge.video ? <div className="mt-[50px]">
@@ -579,7 +598,7 @@ export const Quiz = ({
                             {challenge.isArabic ? (
                                 <h1 className="font-bold font-Messiri text-4xl lg:text-4xl text-red-600 lg:mt-10">test</h1>
                             ) : (
-                                <h1 className="font-extrabold font-Poppins text-xl lg:text-2xl text-red-600 lg:mt-10">{challenge.note}</h1>
+                                <h1 className="font-extrabold font-Poppins text-xl lg:text-2xl text-red-600 lg:mt-10 text-center">{challenge.note}</h1>
                             )}
 
                             <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-[14px] lg:text-2xl">
@@ -598,7 +617,7 @@ export const Quiz = ({
 
                             
                             {/* Conditional rendering for response */}
-                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-[14px] lg:text-2xl">
+                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-[15px] lg:text-2xl">
                                 {showResponse ? (
                                     <span>{challenge.sousQuestion}</span> // Text to show after button click
                                 ) : (
