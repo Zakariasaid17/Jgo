@@ -67,7 +67,7 @@ export default function Home() {
     <>
       <Head>
         {/* Page-Specific Meta Tags */}
-        <title>1 Bac, C'est Facile Avec Jihawigo - Jihawigo</title>
+        <title>1 Bac, C&apos;est Facile Avec Jihawigo - Jihawigo</title>
         <meta
           name="description"
           content="Avec Jihawigo, la révision Jihawi devient simple, interactive et efficace pour assurer votre réussite."
