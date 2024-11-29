@@ -344,6 +344,20 @@ export const Quiz = ({
                                     </div> : null}
 
 
+                                    {challenge.exempleImage ? <div className="mt-[50px]">
+                                  
+                                  
+
+                                  <Image className="mt-[20px] rounded-xl "
+                                         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.exempleImage}`}
+                                         alt="image"
+                                         height={120}
+                                         width={980}
+                                         />
+
+                                  </div> : null}
+
+
                                     
                                   </div> : null}
 
@@ -395,18 +409,7 @@ export const Quiz = ({
 
 
 
-                                  {challenge.exempleImage ? <div className="mt-[50px]">
                                   
-                                  
-
-                                  <Image className="mt-[20px] rounded-xl"
-                                         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.exempleImage}`}
-                                         alt="image"
-                                         height={120}
-                                         width={980}
-                                         />
-
-                                  </div> : null}
 
 
                                   {challenge.exempleImage2 ? <div className="mt-[50px]">
@@ -448,7 +451,7 @@ export const Quiz = ({
                                   { challenge.aretenir ? <div className="mt-[50px] bg-blue-500 p-5 rounded-xl">
                                   <h2 className="text-end font-bold font-Messiri lg:text-4xl text-3xl text-white">: أهم النقاط</h2>
 
-                                  {challenge.aretenir !== ' ' ?<p className="mt-[10px] font-bold font-Messiri text-md lg:text-xl text-white">{challenge.aretenir}</p> : null}
+                                  {challenge.aretenir !== ' ' ?<p className="mt-[10px] font-bold font-Messiri text-md text-end lg:text-xl text-white">{challenge.aretenir}</p> : null}
 
                                   { challenge.retenirA ? <div className="mt-5">
                                         {challenge.retenirA ? <p className="text-end font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirA}</p> : null}
@@ -596,16 +599,20 @@ export const Quiz = ({
                     <div className="mb-20"> 
                         <div className="flex flex-col justify-center items-center">
                             {challenge.isArabic ? (
-                                <h1 className="font-bold font-Messiri text-4xl lg:text-4xl text-red-600 lg:mt-10">test</h1>
+                                <h1 className="font-bold font-Messiri text-3xl lg:text-4xl text-red-600 lg:mt-10 text-center">{challenge.note}</h1>
                             ) : (
                                 <h1 className="font-extrabold font-Poppins text-xl lg:text-2xl text-red-600 lg:mt-10 text-center">{challenge.note}</h1>
                             )}
 
-                            <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-[14px] lg:text-2xl">
-                                {challenge.question}
-                               
+                            {challenge.isArabic ? (
 
-                            </div>
+                            <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Messiri font-bold text-[15px] lg:text-2xl">
+                                {challenge.question}
+                            </div> ) : (
+                            <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-[14px] lg:text-2xl">
+                            {challenge.question}
+                        </div> )}
+
 
 
                             {challenge.one ? 
@@ -616,22 +623,43 @@ export const Quiz = ({
                             : null}
 
                             
-                            {/* Conditional rendering for response */}
-                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-[15px] lg:text-2xl">
-                                {showResponse ? (
-                                    <span>{challenge.sousQuestion}</span> // Text to show after button click
+                            {challenge.isArabic ? (
+                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-[16px] lg:text-2xl">
+                                {showResponse ? (                              
+                                        <span>{challenge.sousQuestion}</span> // Text to show after button click
                                 ) : (
                                     <span>______________</span> // Text to show when the response is hidden
                                 )}
                             </div>
 
-                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-xl lg:text-2xl">
+                                ): (
+
+                                    <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-[15px] lg:text-2xl">
+                                    {showResponse ? (                              
+                                            <span>{challenge.sousQuestion}</span> // Text to show after button click
+                                    ) : (
+                                        <span>______________</span> // Text to show when the response is hidden
+                                    )}
+                                </div>
+                             
+                                ) }
+
+                            {challenge.isArabic ? (
+                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
                                 {!showResponse && ( // Show the button only if the response is hidden
                                     <button onClick={handleShowResponseClick} className="bg-green-500 text-white p-2 rounded">
-                                        Afficher la réponse
+                                        إظهار الإجابة
                                     </button>
                                 )}
-                            </div>
+                            </div> ) : (
+                            <div className="mt-10 flex items-center justify-center text-center font-Poppins font-bold text-xl lg:text-2xl">
+                            {!showResponse && ( // Show the button only if the response is hidden
+                                <button onClick={handleShowResponseClick} className="bg-green-500 text-white p-2 rounded">
+                                    Afficher la réponse
+                                </button>
+                            )}
+                        </div>    
+                            )}
                         </div>
                     </div>
                 )}

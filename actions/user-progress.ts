@@ -1,88 +1,79 @@
 'use server';
 
-
 import { POINTS_TO_REFILL } from "@/constants";
 import db from "@/db/drizzle";
 import { getCourseById, getUserProgress, getUserSubscription } from "@/db/queries";
 import { challengeProgress, challenges, userProgress } from "@/db/schema";
 import { auth, currentUser } from "@clerk/nextjs/server";
-import { error } from "console";
-import { and, eq, ne } from "drizzle-orm";
-import { AwardIcon } from "lucide-react";
+import { and, eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { redirect } from "next/navigation";
 
-
-
 export const upsertUserProgress = async (courseId: number) => {
-    const {userId} = await auth();
+    const { userId } = await auth();
     const user = await currentUser();
 
-    if(!userId || !user){
+    if (!userId || !user) {
         throw new Error('Unauthorized');
     }
 
     const course = await getCourseById(courseId);
 
-    if(!course){
-        throw new Error('Course not Found')
+    if (!course) {
+        throw new Error('Course not Found');
     }
 
-    
-
-    //TODO: Enable once units and lessons are added
-    if(!course.units.length || !course.units[0].lessons.length) {
-        throw new Error('Courses is Empty')
+    if (!course.units.length || !course.units[0].lessons.length) {
+        throw new Error('Course is Empty');
     }
 
-    const existingUserProgress = await getUserProgress();
+    // Check for existing user progress by email
+    const existingUserProgress = await db.query.userProgress.findFirst({
+        where: eq(userProgress.email, user.primaryEmailAddress?.emailAddress || ''),
+    });
 
-
-    if(existingUserProgress){
+    if (existingUserProgress) {
+        // Update existing record
         await db.update(userProgress).set({
             activeCourseId: courseId,
             userName: user.firstName || 'User',
             userImgSrc: user.imageUrl || '/mascot.svg',
-            email: user.primaryEmailAddress?.emailAddress
-        })
-        revalidatePath('/courses');
-        revalidatePath('/learn');
-        redirect('/learn');
-    };
+        }).where(eq(userProgress.userId, existingUserProgress.userId));
 
-    await db.insert(userProgress).values({
-        userId,
-        activeCourseId: courseId,
-        userName: user.firstName || 'User',
-        userImgSrc: user.imageUrl || '/mascot.svg',
-        email: user.primaryEmailAddress?.emailAddress
+        console.log(`Updated user progress for email: ${user.primaryEmailAddress?.emailAddress}`);
+    } else {
+        // Insert new record
+        await db.insert(userProgress).values({
+            userId,
+            activeCourseId: courseId,
+            userName: user.firstName || 'User',
+            userImgSrc: user.imageUrl || '/mascot.svg',
+            email: user.primaryEmailAddress?.emailAddress || '',
+        });
 
-    });
+        console.log(`Created new user progress for email: ${user.primaryEmailAddress?.emailAddress}`);
+    }
 
     revalidatePath('/courses');
     revalidatePath('/learn');
     redirect('/learn');
 };
 
-
 export const reduceHearts = async (challengeId: number) => {
-
     const { userId } = await auth();
 
-    if(!userId) {
+    if (!userId) {
         throw new Error('Unauthorized');
     }
 
     const currentUserProgress = await getUserProgress();
     const userSubscription = await getUserSubscription();
 
-    //TODO : subscription
-
     const challenge = await db.query.challenges.findFirst({
-        where: eq(challenges.id , challengeId),
+        where: eq(challenges.id, challengeId),
     });
 
-    if(!challenge){
+    if (!challenge) {
         throw new Error('Challenge not found');
     }
 
@@ -90,58 +81,53 @@ export const reduceHearts = async (challengeId: number) => {
 
     const existingChallengeProgress = await db.query.challengeProgress.findFirst({
         where: and(
-             eq(challengeProgress.userId, userId),
-             eq(challengeProgress.challengeId, challengeId),
-        )
+            eq(challengeProgress.userId, userId),
+            eq(challengeProgress.challengeId, challengeId),
+        ),
     });
 
     const isPractice = !!existingChallengeProgress;
 
-    if(isPractice) {
-        return {error: 'practice'};
+    if (isPractice) {
+        return { error: 'practice' };
     }
 
-    if(!currentUserProgress){
-        throw new Error('User Progress not found')
+    if (!currentUserProgress) {
+        throw new Error('User Progress not found');
     }
 
-    // TODO : Handle subscription
-    if(userSubscription?.isActive){
-        return {error: 'subscription'}
+    if (userSubscription?.isActive) {
+        return { error: 'subscription' };
     }
 
-    if (currentUserProgress.hearts === 0){
-        return{ error : 'hearts'}
+    if (currentUserProgress.hearts === 0) {
+        return { error: 'hearts' };
     }
 
     await db.update(userProgress).set({
-        hearts: Math.max(currentUserProgress.hearts -1, 0),
-    }).where(eq(userProgress.userId , userId));
+        hearts: Math.max(currentUserProgress.hearts - 1, 0),
+    }).where(eq(userProgress.userId, userId));
 
     revalidatePath('/shop');
     revalidatePath('/learn');
     revalidatePath('/quests');
     revalidatePath('/leaderboard');
-    revalidatePath(`/lesson/${lessonId}`)
-
+    revalidatePath(`/lesson/${lessonId}`);
 };
 
-
 export const refillHearts = async () => {
-   
     const currentUserProgress = await getUserProgress();
 
-
-    if(!currentUserProgress){
+    if (!currentUserProgress) {
         throw new Error('User Progress not found');
-    };
+    }
 
-    if(currentUserProgress.hearts === 5){
+    if (currentUserProgress.hearts === 5) {
         throw new Error('Hearts are already full');
-    };
+    }
 
-    if(currentUserProgress.points < POINTS_TO_REFILL){
-        throw new Error('Not enough points')
+    if (currentUserProgress.points < POINTS_TO_REFILL) {
+        throw new Error('Not enough points');
     }
 
     await db.update(userProgress).set({
@@ -154,8 +140,3 @@ export const refillHearts = async () => {
     revalidatePath('/quests');
     revalidatePath('/leaderboard');
 };
-
-
-
-
-
