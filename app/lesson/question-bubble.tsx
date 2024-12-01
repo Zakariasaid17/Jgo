@@ -22,7 +22,7 @@ export const QuestionBubble = ({question, status, isArabic}: Props) => {
      if(!isArabic){ 
 
     return (
-        <div className=" mt-10 flex items-center justify-center text-center font-Poppins font-bold text-xl lg:text-2xl">
+        <div className=" mt-10 flex items-center justify-center text-center font-Poppins font-bold text-[15px] lg:text-2xl">
  
               {question}       
 
