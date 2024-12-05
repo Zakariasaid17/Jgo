@@ -81,7 +81,7 @@ export const Card = ({id,imageSrc,audioSrc,text,shortcut,selected,onClick,status
   }
 
   return (    
-    <div onClick={handleClick}
+    <div  onClick={handleClick}
       className={cn('h-full border-2 rounded-xl border-b-4 hover:bg-black/5 p-4 lg:p-6 cursor-pointer active:border-b-2',
         selected && 'border-sky-300 bg-sky-100 hover:bg-sky-100',
         selected && status === 'correct' && 'border-green-300 bg-green-100 hover:bg-green-100 ',
@@ -102,11 +102,11 @@ export const Card = ({id,imageSrc,audioSrc,text,shortcut,selected,onClick,status
         </div>
        )}
 
-       <div className={cn('flex items-center  font-bold',
+       <div  className={cn('flex items-center  font-bold',
         type === 'ASSIST' && 'flex-row-reverse',
             )}>
           {type === 'ASSIST' && <div />}
-          <p className={cn(
+          <p  className={cn(
             'text-neutral-600 text-xl text-end lg:text-2xl font-Messiri', 
             selected && 'text-sky-500',
             selected && status === 'correct' && 'text-green-500 ',

@@ -11,6 +11,10 @@
     -moz-user-select: none;
   };
 
+  [dir="rtl"] .text-end {
+    text-align: start; /* Flip alignment for RTL */
+  }
+
   @layer base {
     :root {
       --background: 0 0% 100%;

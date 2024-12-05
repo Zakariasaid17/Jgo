@@ -317,7 +317,11 @@ export const Quiz = ({
                                 {challenge.question !== ' ' ? <div className="mt-[50px]">
                                     <h2 className=" text-end font-bold font-Messiri lg:text-4xl text-3xl text-blue-900">: الشرح النصي</h2>
 
-                                    <p className="text-end mt-[20px] font-bold font-Messiri text-xl lg:text-2xl">{challenge.question}</p>
+                                    <div dir="rtl">
+  <p className=" mt-[20px] font-bold font-Messiri text-xl lg:text-2xl">
+    {challenge.question}:
+  </p>
+</div>
 
                                     {challenge.sousQuestion ? <h3 className="text-end mt-[40px] font-bold font-Messiri text-2xl lg:text-3xl">{challenge.sousQuestion}</h3> : null}
 
@@ -606,7 +610,7 @@ export const Quiz = ({
 
                             {challenge.isArabic ? (
 
-                            <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Messiri font-bold text-[15px] lg:text-2xl">
+                            <div dir="rtl" className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Messiri font-bold text-[15px] lg:text-2xl">
                                 {challenge.question}
                             </div> ) : (
                             <div className="mt-10 flex items-center bg-blue-500 p-2 text-white justify-center text-center font-Poppins font-bold text-[14px] lg:text-2xl">

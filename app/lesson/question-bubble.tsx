@@ -31,11 +31,15 @@ export const QuestionBubble = ({question, status, isArabic}: Props) => {
   }
 
   return (
-    <div className=" mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl">
- 
-    {question}       
+    
+    <div 
+  className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-2xl lg:text-3xl"
+  dir='rtl' // Dynamically set the direction
+>
+  {question}
+</div>
+    
 
-    </div>
 )
 
 
