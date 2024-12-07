@@ -366,7 +366,7 @@ export const Quiz = ({
                                   </div> : null}
 
                                   { challenge.example === ' ' ? <div className="mt-[50px] bg-blue-500 p-5 rounded-xl">
-                                  <h2 className="text-end mb-5 font-bold font-Messiri lg:text-4xl text-3xl text-white">: مثال</h2>
+                                 { challenge.example ? <h2 className="text-end mb-5 font-bold font-Messiri lg:text-4xl text-3xl text-white">: مثال</h2> : null}
 
                                   {challenge.aiImage ? <Image className="m-auto mt-[20px] rounded-xl"
                                          src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.aiImage}`}
@@ -375,17 +375,17 @@ export const Quiz = ({
                                          width={420}
                                          /> : null}
 
-                                  <p className="text-center mt-[20px] font-bold font-Messiri lg:text-3xl text-xl text-white">{challenge.example}</p>
+                                  <p dir="rtl" className="text-center mt-[20px] font-bold font-Messiri lg:text-3xl text-xl text-white">{challenge.example}</p>
 
-                                  { challenge.sousExemple ? <p className=" text-end mt-[20px] font-bold font-Messiri lg:text-xl text-xl text-white">{challenge.sousExemple}</p> : null}
+                                  { challenge.sousExemple ? <p dir="rtl" className=" mt-[20px] font-bold font-Messiri lg:text-2xl text-xl text-white">{challenge.sousExemple}</p> : null}
 
                                     {challenge.a ?<div className="mt-7">
-                                        {challenge.a ? <p className="text-end font-Messiri text-xl font-bold text-white lg:text-2xl ">{challenge.a}</p> : null}
-                                        {challenge.b ? <p className="text-end mt-[25px] text-xl font-Messiri  text-white font-bold lg:text-2xl ">{challenge.b}</p> : null}
-                                        {challenge.c ? <p className="text-end mt-[25px] text-xl font-Messiri text-white font-bold lg:text-2xl ">{challenge.c}</p> : null}
-                                        {challenge.d ? <p className="text-end mt-[25px] text-xl font-Messiri text-white font-bold lg:text-2xl ">{challenge.d}</p> : null}
-                                        {challenge.e ? <p className="text-end mt-[25px] text-xl font-Messiri text-white font-bold lg:text-2xl ">{challenge.e}</p> : null}
-                                        {challenge.f ? <p className="text-end mt-[25px] text-xl font-Messiri text-white font-bold lg:text-2xl ">{challenge.f}</p> : null}
+                                        {challenge.a ? <p  dir="rtl" className="font-Messiri text-[18px] font-bold text-white lg:text-xl ">{challenge.a}</p> : null}
+                                        {challenge.b ? <p dir="rtl" className=" mt-[25px] text-[18px] font-Messiri  text-white font-bold lg:text-xl ">{challenge.b}</p> : null}
+                                        {challenge.c ? <p dir="rtl" className="mt-[25px] text-[18px] font-Messiri text-white font-bold lg:text-xl ">{challenge.c}</p> : null}
+                                        {challenge.d ? <p dir="rtl" className="mt-[25px] text-[18px] font-Messiri text-white font-bold lg:text-xl ">{challenge.d}</p> : null}
+                                        {challenge.e ? <p dir="rtl" className="mt-[25px] text-[18px] font-Messiri text-white font-bold lg:text-xl ">{challenge.e}</p> : null}
+                                        {challenge.f ? <p dir="rtl" className="mt-[25px] text-[18px] font-Messiri text-white font-bold lg:text-xl ">{challenge.f}</p> : null}
 
                                     </div> : null}
 
@@ -628,7 +628,7 @@ export const Quiz = ({
 
                             
                             {challenge.isArabic ? (
-                            <div className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-[16px] lg:text-2xl">
+                            <div dir="rtl" className="mt-10 flex items-center justify-center text-center font-Messiri font-bold text-[16px] lg:text-2xl">
                                 {showResponse ? (                              
                                         <span>{challenge.sousQuestion}</span> // Text to show after button click
                                 ) : (
