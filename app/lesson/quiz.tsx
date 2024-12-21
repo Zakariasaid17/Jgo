@@ -312,38 +312,38 @@ export const Quiz = ({
 
                        
 
-                          { challenge.isArabic ? <> {challenge.titleChallenge ? <h1 className="text-end font-bold lg:text-6xl text-5xl font-Messiri text-blue-600 mt-10">{challenge.titleChallenge}</h1> : null}
+                          { challenge.isArabic ? <> {challenge.titleChallenge ? <h1 dir="rtl" className="font-bold lg:text-6xl text-5xl font-Messiri text-blue-600 mt-10">{challenge.titleChallenge}</h1> : null}
 
                                 {challenge.question !== ' ' ? <div className="mt-[50px]">
                                     <h2 className=" text-end font-bold font-Messiri lg:text-4xl text-3xl text-blue-900">: الشرح النصي</h2>
 
                                     <div dir="rtl">
   <p className=" mt-[20px] font-bold font-Messiri text-xl lg:text-2xl">
-    {challenge.question}:
+    {challenge.question}
   </p>
 </div>
 
-                                    {challenge.sousQuestion ? <h3 className="text-end mt-[40px] font-bold font-Messiri text-2xl lg:text-3xl">{challenge.sousQuestion}</h3> : null}
+                                    {challenge.sousQuestion ? <h3 dir="rtl" className=" mt-[40px] font-bold font-Messiri text-2xl lg:text-3xl">{challenge.sousQuestion}</h3> : null}
 
                                     {challenge.one ?<div className="mt-7">
-                                        {challenge.one ? <p className="font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.one}</p> : null}
-                                        {challenge.two ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.two}</p> : null}
-                                        {challenge.three ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.three}</p> : null}
-                                        {challenge.four ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.four}</p> : null}
-                                        {challenge.five ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.five}</p> : null}
-                                        {challenge.six ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.six}</p> : null}
+                                        {challenge.one ? <p dir="rtl" className="font-Messiri font-bold lg:text-xl  text-xl ">{challenge.one}</p> : null}
+                                        {challenge.two ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl  text-xl ">{challenge.two}</p> : null}
+                                        {challenge.three ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.three}</p> : null}
+                                        {challenge.four ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.four}</p> : null}
+                                        {challenge.five ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.five}</p> : null}
+                                        {challenge.six ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl  text-xl ">{challenge.six}</p> : null}
 
                                     </div> : null}
 
-                                    {challenge.sousQuestionTwo ? <h3 className="text-end mt-[40px] font-bold font-Messiri text-2xl lg:text-3xl">{challenge.sousQuestionTwo}</h3> : null}
+                                    {challenge.sousQuestionTwo ? <h3 dir="rtl" className="mt-[40px] font-bold font-Messiri text-2xl lg:text-3xl">{challenge.sousQuestionTwo}</h3> : null}
 
                                     {challenge.one2 ?<div className="mt-7">
-                                        {challenge.one2 ? <p className="font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.one2}</p> : null}
-                                        {challenge.two2 ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.two2}</p> : null}
-                                        {challenge.three2 ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.three2}</p> : null}
-                                        {challenge.four2 ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.four2}</p> : null}
-                                        {challenge.five2 ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.five2}</p> : null}
-                                        {challenge.six2 ? <p className="mt-[15px] font-Messiri font-bold lg:text-xl text-end text-xl ">{challenge.six2}</p> : null}
+                                        {challenge.one2 ? <p dir="rtl" className="font-Messiri font-bold lg:text-xl text-xl ">{challenge.one2}</p> : null}
+                                        {challenge.two2 ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.two2}</p> : null}
+                                        {challenge.three2 ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.three2}</p> : null}
+                                        {challenge.four2 ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.four2}</p> : null}
+                                        {challenge.five2 ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.five2}</p> : null}
+                                        {challenge.six2 ? <p dir="rtl" className="mt-[15px] font-Messiri font-bold lg:text-xl text-xl ">{challenge.six2}</p> : null}
 
                                     </div> : null}
 
