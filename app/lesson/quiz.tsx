@@ -17,6 +17,8 @@ import Confetti from 'react-confetti';
 import { useHeartsModal } from "@/store/use-hearts-modal";
 import { usePracticeModal } from "@/store/use-practice-modal";
 import { QuestionBubbleLesson } from "./question-bubble-lesson";
+import ReactPlayer from 'react-player/youtube';
+
 import { Video } from "lucide-react";
 
 import { Lalezar } from "next/font/google";
@@ -431,22 +433,27 @@ export const Quiz = ({
 
                                   
 
-                               
 
+                                  {challenge.video ? (
+        <div className="mt-[50px]">
+          <h2 className="mb-5 font-bold font-Messiri lg:text-3xl text-2xl text-blue-900">
+            Vidéo Explicative:
+          </h2>
 
-
-
-                                  {challenge.video ? <div className="mt-[50px]">
-                                  <h2 className="mb-5 font-bold font-Messiri lg:text-3xl text-2xl text-blue-900">Vidéo Explicative:</h2>
-
-                                  <video className="mt-[20px] rounded-xl"
-                                         src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.video}`}
-                                         controls
-                                         controlsList="nodownload"
-                                         onContextMenu={(e) => e.preventDefault()}
-                                         />
-
-                                  </div> : null}
+          {/* Utilisation d'un iframe pour intégrer une vidéo YouTube */}
+          <div className="mt-[20px] rounded-xl overflow-hidden">
+            <iframe
+              className="w-full rounded-xl"
+              style={{ aspectRatio: '16/9' }}
+              src={`https://www.youtube.com/embed/${challenge.video}?rel=0&controls=1&modestbranding=1&showinfo=0&disablekb=1`}
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen
+              onContextMenu={(e) => e.preventDefault()} // Bloque le clic droit
+            ></iframe>
+          </div>
+        </div>
+      ) : null}
 
 
 
@@ -558,19 +565,45 @@ export const Quiz = ({
                             </div> : null}
 
 
+                            {challenge.video ? (
+        <div className="mt-[50px]">
+          <h2 className="mb-5 font-bold font-Messiri lg:text-3xl text-2xl text-blue-900">
+            Vidéo Explicative:
+          </h2>
 
-                          {challenge.video ? <div className="mt-[50px]">
-                                <h2 className="mb-5 font-bold font-Poppins lg:text-3xl text-2xl text-blue-900">Vidéo Explicative:</h2>
-
-                                <video className="mt-[20px] rounded-xl"
-                                   src={`https://jihawigocom.s3.eu-west-3.amazonaws.com/${challenge.video}`}
-                                   controls
-                                   controlsList="nodownload"
-                                   onContextMenu={(e) => e.preventDefault()}
-                                />
-
-                             </div> : null}
-
+          {/* Utilisation de ReactPlayer pour intégrer une vidéo YouTube */}
+          <div className="mt-[20px] rounded-xl overflow-hidden">
+            <ReactPlayer
+              url={`https://www.youtube.com/watch?v=${challenge.video}`}
+              controls
+              width="100%"
+              height="100%"
+              style={{ aspectRatio: '16/9' }}
+              config={{
+                playerVars: {
+                  rel: 0,
+                  modestbranding: 1,
+                  showinfo: 0,
+                  disablekb: 1,
+                  origin: window.location.origin,
+                },
+              }}
+              onEnded={() => {
+                // Restart the video when it ends
+                const player = document.querySelector('iframe');
+                if (player) {
+                  if (player && player.contentWindow) {
+                    player.contentWindow.postMessage(
+                      '{"event":"command","func":"playVideo","args":""}',
+                      '*'
+                    );
+                  }
+                }
+              }}
+            />
+          </div>
+        </div>
+      ) : null}
 
 
 
