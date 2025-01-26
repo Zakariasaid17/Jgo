@@ -11,10 +11,10 @@ export const metadata: Metadata = {
   },
   // Add other SEO metadata
   title: {
-    template: '%s | Your Site Name',
-    default: 'Your Site Name',
+    template: '%s | JihawiGo',
+    default: 'JihawiGo',
   },
-  description: 'Your site description',
+  description: 'Transformez vos révisions en succès 🚀',
 }
 
 type Props = {
