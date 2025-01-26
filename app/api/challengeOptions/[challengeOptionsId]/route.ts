@@ -1,10 +1,9 @@
 import db from "@/db/drizzle";
-import { challengeOptions } from "@/db/schema";
+import { challenges } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-// Serialization helper function
 const serializeObject = (obj: any) => {
   try {
     return JSON.parse(JSON.stringify(obj));
@@ -16,30 +15,28 @@ const serializeObject = (obj: any) => {
 
 export const GET = async (
   req: Request,
-  { params }: { params: { challengeOptionsId: number } }
+  { params }: { params: { challengeId: number } }
 ) => {
   if (!isAdmin()) {
     return new NextResponse('Unauthorized', { status: 403 });
   }
 
   try {
-    const data = await db.query.challengeOptions.findFirst({
-      where: eq(challengeOptions.id, params.challengeOptionsId),
+    const data = await db.query.challenges.findFirst({
+      where: eq(challenges.id, params.challengeId),
     });
 
-    // Serialize the data before returning
     const serializedData = serializeObject(data);
     return NextResponse.json(serializedData);
   } catch (error) {
-    // Log the error and return a 500 response
-    console.error('Error fetching challenge option:', error);
+    console.error('Error fetching challenge:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };
 
 export const PUT = async (
   req: Request,
-  { params }: { params: { challengeOptionsId: number } }
+  { params }: { params: { challengeId: number } }
 ) => {
   if (!isAdmin()) {
     return new NextResponse('Unauthorized', { status: 403 });
@@ -48,37 +45,33 @@ export const PUT = async (
   try {
     const body = await req.json();
 
-    const data = await db.update(challengeOptions).set({
+    const data = await db.update(challenges).set({
       ...body,
-    }).where(eq(challengeOptions.id, params.challengeOptionsId)).returning();
+    }).where(eq(challenges.id, params.challengeId)).returning();
 
-    // Serialize the data before returning
     const serializedData = serializeObject(data[0]);
     return NextResponse.json(serializedData);
   } catch (error) {
-    // Log the error and return a 500 response
-    console.error('Error updating challenge option:', error);
+    console.error('Error updating challenge:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };
 
 export const DELETE = async (
   req: Request,
-  { params }: { params: { challengeOptionsId: number } }
+  { params }: { params: { challengeId: number } }
 ) => {
   if (!isAdmin()) {
     return new NextResponse('Unauthorized', { status: 403 });
   }
 
   try {
-    const data = await db.delete(challengeOptions).where(eq(challengeOptions.id, params.challengeOptionsId)).returning();
+    const data = await db.delete(challenges).where(eq(challenges.id, params.challengeId)).returning();
 
-    // Serialize the data before returning
     const serializedData = serializeObject(data[0]);
     return NextResponse.json(serializedData);
   } catch (error) {
-    // Log the error and return a 500 response
-    console.error('Error deleting challenge option:', error);
+    console.error('Error deleting challenge:', error);
     return new NextResponse('Internal Server Error', { status: 500 });
   }
 };
