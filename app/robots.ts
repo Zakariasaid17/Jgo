@@ -13,6 +13,6 @@ export default function robots(): MetadataRoute.Robots {
 
             }
         ],
-        sitemap: '${https://jihawigo.com/sitemap.xml}'
+        sitemap: 'https://jihawigo.com/sitemap.xml'
     }
 }
