@@ -88,6 +88,8 @@ export default function Home() {
         />
         <meta name="twitter:image" content="/book.webp" />
         <meta name="twitter:card" content="summary_large_image" />
+
+        <meta name="robots" content="noindex, nofollow" />
       </Head>
       <main className="min-h-screen bg-[#FFF]">
         {/* Hero Section */}
