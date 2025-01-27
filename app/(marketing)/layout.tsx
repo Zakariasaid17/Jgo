@@ -7,7 +7,7 @@ type Props = {
   noIndex?: boolean;  // Ajouter un prop pour contrôler l'indexation
 }
 
-function Layout({ children, noIndex }: Props) {
+const Layout = ({ children, noIndex }: Props) => {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
