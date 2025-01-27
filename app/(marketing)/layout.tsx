@@ -1,36 +1,28 @@
-// layout.tsx
 import { Footer } from "./Footer";
 import { Header } from "./Header";
-import { Metadata } from 'next'
-
-// Add metadata export
-export const metadata: Metadata = {
-  robots: {
-    index: true,
-    follow: true,
-  },
-  // Add other SEO metadata
-  title: {
-    template: '%s | JihawiGo',
-    default: 'JihawiGo',
-  },
-  description: 'Transformez vos révisions en succès 🚀',
-}
+import Head from 'next/head';
 
 type Props = {
   children: React.ReactNode;
+  noIndex?: boolean;  // Ajouter un prop pour contrôler l'indexation
 }
 
-function layout({ children }: Props) {
+function Layout({ children, noIndex }: Props) {
   return (
     <div className="min-h-screen flex flex-col">
       <Header />
       <main className="flex flex-1 flex-col justify-center items-center">
+        {/* Utilisation du composant Head pour les métadonnées */}
+        <Head>
+          <title>{noIndex ? 'Page protégée | JihawiGo' : 'JihawiGo'}</title>
+          <meta name="description" content="Transformez vos révisions en succès 🚀" />
+          <meta name="robots" content={noIndex ? 'noindex, nofollow' : 'index, follow'} />
+        </Head>
         {children}
       </main>
       <Footer />
     </div>
-  )
+  );
 }
 
-export default layout
+export default Layout;
