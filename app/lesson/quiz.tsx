@@ -58,9 +58,9 @@ export const Quiz = ({
        }
     });
 
-    useEffect(() => {
+    /*useEffect(() => {
         console.log(`challenge id is ${challenge.id}`);
-      });
+      });*/
 
 
 
@@ -457,17 +457,7 @@ export const Quiz = ({
       ></iframe>
     </div>
 
-    {/* Bouton de téléchargement */}
-    <div className="mt-5">
-           
-      <a
-        href={challenge.video} // Make sure this is the actual downloadable URL
-        download
-        className="bg-blue-500 text-white py-2 px-4 rounded-lg hover:bg-blue-600 transition duration-300"
-      >
-        Télécharger la Vidéo
-      </a>
-    </div>
+   
   </div>
 ) : null}
 
@@ -498,13 +488,28 @@ export const Quiz = ({
 
                                       <p className=" mt-[20px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.question}</p>
 
+                                        {challenge.sousQuestion ? <h3 className=" mt-[50px] font-bold text-blue-900 font-Poppins text-2xl lg:text-3xl">{challenge.sousQuestion}</h3> : null }
+
                                 {challenge.one ?<div className="mt-7">
-                                      {challenge.one ? <p className="font-Poppins text-lg ">{challenge.one}</p> : null}
-                                      {challenge.two ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.two}</p> : null}
-                                      {challenge.three ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.three}</p> : null}
-                                      {challenge.four ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.four}</p> : null}
-                                      {challenge.five ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.five}</p> : null}
-                                      {challenge.six ? <p className="mt-[10px] font-Poppins text-lg ">{challenge.six}</p> : null}
+                                      {challenge.one ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.one}</p> : null}
+                                      {challenge.two ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.two}</p> : null}
+                                      {challenge.three ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.three}</p> : null}
+                                      {challenge.four ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.four}</p> : null}
+                                      {challenge.five ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.five}</p> : null}
+                                      {challenge.six ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.six}</p> : null}
+
+                                </div> : null}
+
+
+                                      {challenge.sousQuestionTwo ? <h3 className=" mt-[50px] font-bold text-blue-900 font-Poppins text-2xl lg:text-3xl">{challenge.sousQuestionTwo}</h3> : null }
+
+                                {challenge.one2 ?<div className="mt-7">
+                                      {challenge.one ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.one2}</p> : null}
+                                      {challenge.two ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.two2}</p> : null}
+                                      {challenge.three ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.three2}</p> : null}
+                                      {challenge.four ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.four2}</p> : null}
+                                      {challenge.five ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.five2}</p> : null}
+                                      {challenge.six ? <p className="mt-[10px] font-bold font-Poppins text-[18px] lg:text-xl">{challenge.six2}</p> : null}
 
                                 </div> : null}
 
