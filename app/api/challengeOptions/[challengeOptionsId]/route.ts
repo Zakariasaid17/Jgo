@@ -1,77 +1,126 @@
 import db from "@/db/drizzle";
-import { challenges } from "@/db/schema";
+import { challengeOptions } from "@/db/schema";
 import { isAdmin } from "@/lib/admin";
 import { eq } from "drizzle-orm";
 import { NextResponse } from "next/server";
 
-const serializeObject = (obj: any) => {
-  try {
-    return JSON.parse(JSON.stringify(obj));
-  } catch (error) {
-    console.error('Serialization error:', error);
-    throw new Error('Data is not serializable');
-  }
+interface ChallengeOption {
+  id: number;
+  text: string;
+  challengeId: number;
+  isArabic: boolean;
+  correct: boolean;
+  imageSrc: string | null;
+  audioSrc: string | null;
+}
+
+const serializeObject = (obj: Partial<ChallengeOption> | null) => {
+  if (!obj) return null;
+  
+  const sanitized: Partial<ChallengeOption> = {
+    id: obj.id,
+    text: obj.text,
+    challengeId: obj.challengeId,
+    isArabic: obj.isArabic,
+    correct: obj.correct,
+    imageSrc: obj.imageSrc,
+    audioSrc: obj.audioSrc
+  };
+
+  return Object.fromEntries(
+    Object.entries(sanitized).filter(([_, value]) => value !== undefined)
+  );
 };
 
-export const GET = async (
+export async function GET(
   req: Request,
-  { params }: { params: { challengeId: number } }
-) => {
+  { params }: { params: { challengeOptionsId: string } }
+) {
   if (!isAdmin()) {
     return new NextResponse('Unauthorized', { status: 403 });
   }
 
   try {
-    const data = await db.query.challenges.findFirst({
-      where: eq(challenges.id, params.challengeId),
+    const data = await db.query.challengeOptions.findFirst({
+      where: eq(challengeOptions.id, parseInt(params.challengeOptionsId, 10)),
     });
 
-    const serializedData = serializeObject(data);
-    return NextResponse.json(serializedData);
-  } catch (error) {
-    console.error('Error fetching challenge:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
-  }
-};
+    if (!data) {
+      return NextResponse.json({ error: 'Challenge option not found' }, { status: 404 });
+    }
 
-export const PUT = async (
+    return NextResponse.json(serializeObject(data));
+  } catch (error) {
+    console.error('Error fetching challenge option:', error);
+    return NextResponse.json(
+      { error: 'Failed to fetch challenge option' },
+      { status: 500 }
+    );
+  }
+}
+
+export async function PUT(
   req: Request,
-  { params }: { params: { challengeId: number } }
-) => {
+  { params }: { params: { challengeOptionsId: string } }
+) {
   if (!isAdmin()) {
     return new NextResponse('Unauthorized', { status: 403 });
   }
 
   try {
     const body = await req.json();
+    
+    const data = await db
+      .update(challengeOptions)
+      .set({
+        text: body.text,
+        challengeId: body.challengeId,
+        isArabic: body.isArabic,
+        correct: body.correct,
+        imageSrc: body.imageSrc,
+        audioSrc: body.audioSrc
+      })
+      .where(eq(challengeOptions.id, parseInt(params.challengeOptionsId, 10)))
+      .returning();
 
-    const data = await db.update(challenges).set({
-      ...body,
-    }).where(eq(challenges.id, params.challengeId)).returning();
+    if (!data.length) {
+      return NextResponse.json({ error: 'Challenge option not found' }, { status: 404 });
+    }
 
-    const serializedData = serializeObject(data[0]);
-    return NextResponse.json(serializedData);
+    return NextResponse.json(serializeObject(data[0]));
   } catch (error) {
-    console.error('Error updating challenge:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    console.error('Error updating challenge option:', error);
+    return NextResponse.json(
+      { error: 'Failed to update challenge option' },
+      { status: 500 }
+    );
   }
-};
+}
 
-export const DELETE = async (
+export async function DELETE(
   req: Request,
-  { params }: { params: { challengeId: number } }
-) => {
+  { params }: { params: { challengeOptionsId: string } }
+) {
   if (!isAdmin()) {
     return new NextResponse('Unauthorized', { status: 403 });
   }
 
   try {
-    const data = await db.delete(challenges).where(eq(challenges.id, params.challengeId)).returning();
+    const data = await db
+      .delete(challengeOptions)
+      .where(eq(challengeOptions.id, parseInt(params.challengeOptionsId, 10)))
+      .returning();
 
-    const serializedData = serializeObject(data[0]);
-    return NextResponse.json(serializedData);
+    if (!data.length) {
+      return NextResponse.json({ error: 'Challenge option not found' }, { status: 404 });
+    }
+
+    return NextResponse.json(serializeObject(data[0]));
   } catch (error) {
-    console.error('Error deleting challenge:', error);
-    return new NextResponse('Internal Server Error', { status: 500 });
+    console.error('Error deleting challenge option:', error);
+    return NextResponse.json(
+      { error: 'Failed to delete challenge option' },
+      { status: 500 }
+    );
   }
-};
+}

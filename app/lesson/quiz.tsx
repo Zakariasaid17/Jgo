@@ -473,10 +473,10 @@ export const Quiz = ({
                                   {challenge.aretenir !== ' ' ?<p className="mt-[10px] font-bold font-Messiri text-md text-end lg:text-xl text-white">{challenge.aretenir}</p> : null}
 
                                   { challenge.retenirA ? <div className="mt-5">
-                                        {challenge.retenirA ? <p className="text-end font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirA}</p> : null}
-                                        {challenge.retenirB ? <p className="mt-5 text-end font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirB}</p> : null}
-                                        {challenge.retenirC ? <p className="mt-5 text-end font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirC}</p> : null}
-                                        {challenge.retenirD ? <p className="mt-5 text-end font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirD}</p> : null}
+                                        {challenge.retenirA ? <p dir="rtl" className="font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirA}</p> : null}
+                                        {challenge.retenirB ? <p dir="rtl" className="mt-5 font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirB}</p> : null}
+                                        {challenge.retenirC ? <p dir="rtl" className="mt-5 font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirC}</p> : null}
+                                        {challenge.retenirD ? <p dir="rtl" className="mt-5  font-Messiri font-bold text-white lg:text-2xl text-xl ">{challenge.retenirD}</p> : null}
                                   </div> : null}
                                   </div> : null}   
 
@@ -642,7 +642,7 @@ export const Quiz = ({
                     <div className="mb-20"> 
                         <div className="flex flex-col justify-center items-center">
                             {challenge.isArabic ? (
-                                <h1 className="font-bold font-Messiri text-3xl lg:text-4xl text-red-600 lg:mt-10 text-center">{challenge.note}</h1>
+                                <h1 dir="rtl" className="font-bold font-Messiri text-3xl lg:text-4xl text-red-600 lg:mt-10 text-center">{challenge.note}</h1>
                             ) : (
                                 <h1 className="font-extrabold font-Poppins text-xl lg:text-2xl text-red-600 lg:mt-10 text-center">{challenge.note}</h1>
                             )}

@@ -106,7 +106,7 @@ export const Card = ({id,imageSrc,audioSrc,text,shortcut,selected,onClick,status
         type === 'ASSIST' && 'flex-row-reverse',
             )}>
           {type === 'ASSIST' && <div />}
-          <p  className={cn(
+          <p dir="rtl"  className={cn(
             'text-neutral-600 text-xl text-end lg:text-2xl font-Messiri', 
             selected && 'text-sky-500',
             selected && status === 'correct' && 'text-green-500 ',
